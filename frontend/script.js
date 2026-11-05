@@ -1,7 +1,5 @@
+const API_URL = "/api/notes";
 
-const API_URL = "http://localhost:5000/api/notes";
-
-// Initialize Markdown Editor
 const editor = new SimpleMDE({
     element: document.getElementById("markdownEditor"),
     spellChecker: false,
@@ -9,7 +7,6 @@ const editor = new SimpleMDE({
     autofocus: false
 });
 
-// HTML elements
 const titleInput = document.getElementById("noteTitle");
 const authorInput = document.getElementById("author");
 const notesList = document.getElementById("notesList");
@@ -22,12 +19,10 @@ const deleteBtn = document.getElementById("deleteBtn");
 
 let currentNoteId = null;
 
-// Status message
 function setStatus(message) {
     statusText.textContent = message;
 }
 
-// Reset editor
 function resetEditor() {
     currentNoteId = null;
     titleInput.value = "";
@@ -35,7 +30,6 @@ function resetEditor() {
     setStatus("Creating a new note...");
 }
 
-// Load all notes
 async function loadNotes() {
     try {
         setStatus("Loading notes...");
@@ -56,7 +50,6 @@ async function loadNotes() {
     }
 }
 
-// Display notes
 function renderNotes(notes) {
     notesList.innerHTML = "";
 
@@ -88,7 +81,6 @@ function renderNotes(notes) {
     });
 }
 
-// Create or update note
 async function saveNote() {
     const title = titleInput.value.trim();
     const content = editor.value().trim();
@@ -132,7 +124,6 @@ async function saveNote() {
     }
 }
 
-// Delete note
 async function deleteNote() {
     if (!currentNoteId) {
         setStatus("Please select a note to delete.");
@@ -161,7 +152,6 @@ async function deleteNote() {
     }
 }
 
-// Button events
 newNoteBtn.addEventListener("click", resetEditor);
 
 refreshBtn.addEventListener("click", loadNotes);
@@ -170,7 +160,6 @@ saveBtn.addEventListener("click", saveNote);
 
 deleteBtn.addEventListener("click", deleteNote);
 
-// Load notes when page opens
 loadNotes();
 
 console.log("Collaborative Markdown App initialized!");
